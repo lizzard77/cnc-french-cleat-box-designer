@@ -141,6 +141,11 @@
         <button on:click={ev => save(svg, "Workspace.svg")}>Download Workspace</button>
         <p><i>Click individual parts to download separate files</i></p>    
     </div>
+
+    <div style="font-style: italic; font-size: smaller;">
+        Open Source - CC BY SA 4.0<br />
+        <a href="https://github.com/lizzard77/cnc-french-cleat-box-designer">Visit project on GitHub</a>
+    </div>
 </div>
 
 <div id="workspaces">
@@ -152,6 +157,7 @@
     {/each}
     </svg>
 </div>
+
 
 <style>
 	:global(body) {
