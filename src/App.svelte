@@ -111,6 +111,8 @@
         <br />
         Height <input type=number bind:value={$box.height} min=0 max=500 />
         Cleat <input type=number bind:value={$cleatWidth} min=0 max=500 />
+        <br />
+        Material thickness <input type=number bind:value={$thickness} min=0 max=500 />
         </nobr>
     </div>
     <div>
