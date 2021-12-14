@@ -90,7 +90,7 @@
             items.addBar($box.width, "bl");
         }
 
-        $box.isClosed = $schlitze.h2 || $schlitze.v2 || $schlitze.h1 || $schlitze.v3 || $box.isClosed;   
+        $box.isClosed = $schlitze.h2 || $schlitze.v2 || $schlitze.v3 || $box.isClosed;   
         
         items.getDimensions();
         items.reposition();
@@ -104,37 +104,41 @@
 
 <div style="display: flex; flex-direction: column; margin: 1em;">
     <div>
-        Workspace<br /> 
-        W <input type=number bind:value={$workspace.width} on:change={(e) => $workspace = { ...$workspace, width: e.target.value }} min=0 max=1000 />
-        L <input type=number bind:value={$workspace.height} min=0 max=1000 />
-    </div>
-    <div>
-        Dimensions<br />
+        <h3><b>Box Dimensions (mm)</h3>
         <nobr>
-        W <input type=number bind:value={$box.width} min=0 max=500 />
-        D <input type=number bind:value={$box.depth} min={$randAbstand*2 + $thickness} max=500 />
-        H <input type=number bind:value={$box.height} min=0 max=500 />
+        Width <input type=number bind:value={$box.width} min=0 max=500 />
+        Depth <input type=number bind:value={$box.depth} min={$randAbstand*2 + $thickness} max=500 />
+        <br />
+        Height <input type=number bind:value={$box.height} min=0 max=500 />
         Cleat <input type=number bind:value={$cleatWidth} min=0 max=500 />
         </nobr>
     </div>
     <div>
-        Shelves<br/>
+        <h3>Shelves</h3>
         <input type="checkbox" bind:checked={topIsShelf} /> top
         <input type="checkbox" bind:checked={bottomIsShelf} /> bottom
         <input type="checkbox" bind:checked={frontIsShelf} /> front
         <input type="checkbox" bind:checked={backIsShelf} /> back
-        <br />
-        Bars<br/>
-        <input type="checkbox" bind:checked={topLeftBar} /> tl
-        <input type="checkbox" bind:checked={topRightBar} /> tr
-        <input type="checkbox" bind:checked={botLeftBar} /> bl
-        <input type="checkbox" bind:checked={botRightBar} /> br
-        <br />
-        <input type="checkbox" bind:checked={$box.isClosed} /> closed sides
+        
+        <h3>Bars</h3>
+        <input type="checkbox" bind:checked={topLeftBar} /> Back/top
+        <input type="checkbox" bind:checked={topRightBar} /> Front/top
+        <input type="checkbox" bind:checked={botLeftBar} /> Back/bottom
+        <input type="checkbox" bind:checked={botRightBar} /> Front/bottom
+        
+        <h3>Sides</h3>
+        <input type="checkbox" bind:checked={$box.isClosed} /> closed sides (mandatory with front or top shelves)
     </div>
-
-    <button on:click={ev => save(svg, "Workspace.svg")}>Download Workspace</button>
-    <p><i>Click individual parts to download separate files</i></p>    
+    <div>
+        <h3>Workspace Dimensions (mm)</h3>
+        W <input type=number bind:value={$workspace.width} on:change={(e) => $workspace = { ...$workspace, width: e.target.value }} min=0 max=1000 />
+        L <input type=number bind:value={$workspace.height} min=0 max=1000 />
+    </div>
+    <div>
+        <h3>Download SVG</h3>
+        <button on:click={ev => save(svg, "Workspace.svg")}>Download Workspace</button>
+        <p><i>Click individual parts to download separate files</i></p>    
+    </div>
 </div>
 
 <div id="workspaces">
