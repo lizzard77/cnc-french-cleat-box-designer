@@ -7,6 +7,10 @@ let svg;
     export let randAbstand = 7;    
     export let x = 0;
     export let y = 0;
+
+    export let pocketColor = '#7F7F7F';
+    export let extCutOutline = '#000000';
+    export let extCutFill = '#000000';
 </script>
 
 <g transform="translate({x} {y})" on:click={() => save(svg, "Bar.svg")} bind:this={svg}>
@@ -27,5 +31,5 @@ let svg;
         l{$thickness},0
 
         l0,{-randAbstand}
-    "  style="fill:white;" />
+    "  style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
 </g>

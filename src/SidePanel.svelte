@@ -6,6 +6,10 @@
     export let x = 0;
     export let y = 0;
     let svg;
+
+    export let pocketColor = '#7F7F7F';
+    export let extCutOutline = '#000000';
+    export let extCutFill = '#000000';
 </script>
 
 <g transform="translate({mirror ? x*2-5 : x} {y})" on:click={() => save(svg, "SidePanel.svg")} bind:this={svg}>
@@ -19,7 +23,7 @@
             l-{$box.depth},0 
             l0,-{$box.height-$cleatConnectionHeight} 
             l-{$cleatWidth},{$cleatWidth} 
-            l0,-{$cleatWidth + $cleatConnectionHeight}" style="fill:white;" />
+            l0,-{$cleatWidth + $cleatConnectionHeight}" style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
         {:else}
         <path d="M0,0 
             l{$cleatWidth},0 
@@ -31,33 +35,33 @@
             l{-$box.depth},0
             l0,-{$box.height-$cleatConnectionHeight} 
             l-{$cleatWidth},{$cleatWidth} 
-            l0,-{$cleatWidth + $cleatConnectionHeight}" style="fill:white;" />
+            l0,-{$cleatWidth + $cleatConnectionHeight}" style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
         {/if}
 
         {#if ($schlitze.h1)}
-        <rect x={$cleatWidth+$randAbstand+$thickness} y={$cleatConnectionHeight+$randAbstand} width={$thickness*2} height={$thickness} style="fill:red;" />
+        <rect x={$cleatWidth+$randAbstand+$thickness} y={$cleatConnectionHeight+$randAbstand} width={$thickness*2} height={$thickness} style="fill:{pocketColor}; stroke-width: 0;" />
         {/if}
         {#if ($schlitze.h2)}
-        <rect x={$cleatWidth+$box.depth-$randAbstand-$thickness*3} y={$cleatConnectionHeight+$randAbstand} width={$thickness*2} height={$thickness} style="fill:blue;" />
+        <rect x={$cleatWidth+$box.depth-$randAbstand-$thickness*3} y={$cleatConnectionHeight+$randAbstand} width={$thickness*2} height={$thickness} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         {#if ($schlitze.h3)}
-        <rect x={$cleatWidth+$box.depth-$randAbstand-$thickness*3} y={$box.height-$randAbstand-$thickness} width={$thickness*2} height={$thickness} style="fill:orange;" />
+        <rect x={$cleatWidth+$box.depth-$randAbstand-$thickness*3} y={$box.height-$randAbstand-$thickness} width={$thickness*2} height={$thickness} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         {#if ($schlitze.h4)}
-        <rect x={$cleatWidth+$randAbstand+$thickness} y={$box.height-$randAbstand-$thickness} width={$thickness*2} height={$thickness} style="fill:green;" />
+        <rect x={$cleatWidth+$randAbstand+$thickness} y={$box.height-$randAbstand-$thickness} width={$thickness*2} height={$thickness} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         
         {#if ($schlitze.v1)}
-        <rect x={$cleatWidth+$randAbstand} y={$cleatConnectionHeight+$randAbstand+$thickness} width={$thickness} height={$thickness*2} style="fill:red;" />
+        <rect x={$cleatWidth+$randAbstand} y={$cleatConnectionHeight+$randAbstand+$thickness} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         {#if ($schlitze.v2)}
-        <rect x={$cleatWidth+$box.depth-$thickness-$randAbstand} y={$cleatConnectionHeight+$randAbstand+$thickness} width={$thickness} height={$thickness*2} style="fill:blue;" />
+        <rect x={$cleatWidth+$box.depth-$thickness-$randAbstand} y={$cleatConnectionHeight+$randAbstand+$thickness} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         {#if ($schlitze.v3)}
-        <rect x={$cleatWidth+$box.depth-$thickness-$randAbstand} y={$box.height-$randAbstand-$thickness*3} width={$thickness} height={$thickness*2} style="fill:orange;" />
+        <rect x={$cleatWidth+$box.depth-$thickness-$randAbstand} y={$box.height-$randAbstand-$thickness*3} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         {#if ($schlitze.v4)}
-        <rect x={$cleatWidth+$randAbstand} y={$box.height-$randAbstand-$thickness*2-$thickness} width={$thickness} height={$thickness*2} style="fill:green;" />
+        <rect x={$cleatWidth+$randAbstand} y={$box.height-$randAbstand-$thickness*2-$thickness} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
     </g>
 </g>
