@@ -1,0 +1,126 @@
+import { writable, derived, get } from 'svelte/store';
+import SidePanel from './SidePanel.svelte';
+import Shelf from './Shelf.svelte';
+import VerticalShelf from './VerticalShelf.svelte';
+import Bar from './Bar.svelte';
+
+export const thickness = writable(9);
+export const box = writable({ width: 100, height: 150, depth: 100, isClosed: true });
+export const cornerRadius = writable(20);
+export const cleatWidth = writable(18);
+export const cleatConnectionHeight = writable(20);    
+export const randAbstand = writable(7);
+
+export const  schlitze = writable({
+        h1: false,
+        h2: false,
+        h3: false,
+        h4: false,
+        v1: false,
+        v2: false,
+        v3: false,
+        v4: false
+    });
+
+
+function createWorkspace()
+{
+    const { subscribe, set, update } = writable({ width: 600, height: 700 });
+    return {
+        subscribe,
+        
+    }
+}
+export const workspace = createWorkspace();
+
+function createItems() 
+{
+    const { subscribe, set, update } = writable([]);
+    return {
+        subscribe,
+        set,
+        update,
+        addSides: () => 
+        {
+            set([
+                { name : "s1",  x : 0, y: 0, w: 0, component : SidePanel },
+                { name : "s2", x : 0, y : 0, component : SidePanel, props: { mirror : true } }
+            ]);
+            schlitze.set({ 
+                h1: false, h2: false, h3: false, h4: false,
+                v1: false, v2: false, v3: false, v4: false
+            });
+        },        
+
+        addShelf: (w, h, name, isVertical) =>
+        {
+            update(items => [...items, { 
+                name,
+                props: { w, h },
+                component : isVertical ? VerticalShelf : Shelf
+            }]);
+        },
+
+        addBar: (w, name) =>
+        {
+            update(items => [...items, { 
+                name,
+                component : Bar
+            }]);
+        },
+
+        getDimensions: () => {
+            let tempItems = get(items);            
+            tempItems.forEach(i => {
+                if (i.name)
+                {
+                    console.log("get " +i.name);
+                    var item = document.querySelector('#'+  i.name);
+                    if (item)
+                    {
+                        var rect = item.getBoundingClientRect();
+                        if (rect && (i.w !== rect.width || i.h !== rect.height))
+                        {
+                            console.log("size of " + i.name + " is " + rect.width + "/" + rect.height);
+                            i.w = rect.width;
+                            i.h = rect.height;
+                        }
+                    }
+                }
+            });
+            items.set(tempItems);
+        },
+
+        reposition: () => {
+            let xpos = 0; 
+            let ypos = 0;
+            let lineHeight = 0;
+            const gap = 5;
+
+            let ws = get(workspace);
+            let tempItems = get(items);
+            tempItems.forEach(i => {
+                if (i.w && i.h)
+                {
+                    if (xpos + i.w + 5 > ws.width)
+                    {
+                        ypos += lineHeight + gap;
+                        xpos = 0;
+                    }
+
+                    if (i.x !== xpos || i.y !== ypos)
+                    {
+                        i.x = xpos;
+                        i.y = ypos;
+                    }
+                    console.log("move " + i.name + " to " + i.x + "/" + i.y);                
+                    lineHeight = Math.max(lineHeight, i.h);
+                    xpos += i.w + gap;
+                }
+            })
+            items.set(tempItems);
+        }
+    }
+}
+export const items = createItems();
+
