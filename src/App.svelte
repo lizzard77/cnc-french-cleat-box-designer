@@ -143,7 +143,7 @@
     </div>
 
     <div style="font-style: italic; font-size: smaller;">
-        Open Source - CC BY SA 4.0<br />
+        Open Source - <a href="https://github.com/lizzard77/cnc-french-cleat-box-designer/blob/master/LICENSE">MIT License</a>><br />
         <a href="https://github.com/lizzard77/cnc-french-cleat-box-designer">Visit project on GitHub</a>
     </div>
 </div>
