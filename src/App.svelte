@@ -1,6 +1,6 @@
 <script>
     import { afterUpdate } from 'svelte';
-    import { items, workspace, box, schlitze, randAbstand, thickness, cleatWidth } from './store';
+    import { items, workspace, box, schlitze, randAbstand, thickness, cleatWidth, supportHeight, gap } from './store';
 	import save from './save-svg.js';
 
     let svg;
@@ -106,30 +106,36 @@
     <div>
         <h3><b>Box Dimensions (mm)</h3>
         <nobr>
-        Width <input type=number bind:value={$box.width} min=0 max=500 />
-        Depth <input type=number bind:value={$box.depth} min={$randAbstand*2 + $thickness} max=500 />
-        <br />
+        Width <input type=number bind:value={$box.width} min=0 max=500 /><br />
+        Depth <input type=number bind:value={$box.depth} min={$randAbstand*2 + $thickness} max=500 /><br />
         Height <input type=number bind:value={$box.height} min=0 max=500 />
-        Cleat <input type=number bind:value={$cleatWidth} min=0 max=500 />
-        <br />
-        Material thickness <input type=number bind:value={$thickness} min=0 max=500 />
         </nobr>
+    </div>
+    <div>
+        <h3><b>Base Dimensions (mm)</h3>            
+        Material thickness <input type=number bind:value={$thickness} min=0 max=500 /><br />
+        Cleat thickness <input type=number bind:value={$cleatWidth} min=0 max=500 /><br />
+        Support part height <input type=number bind:value={$supportHeight} min=0 max=500 /><br />
+        <i>(Set to 0 to disable)</i><br />
+        Gap <input type=number bind:value={$gap} min=0 max=500 />
+
     </div>
     <div>
         <h3>Shelves</h3>
         <input type="checkbox" bind:checked={topIsShelf} /> top
-        <input type="checkbox" bind:checked={bottomIsShelf} /> bottom
+        <input type="checkbox" bind:checked={bottomIsShelf} /> bottom<br />
         <input type="checkbox" bind:checked={frontIsShelf} /> front
         <input type="checkbox" bind:checked={backIsShelf} /> back
         
         <h3>Bars</h3>
         <input type="checkbox" bind:checked={topLeftBar} /> Back/top
-        <input type="checkbox" bind:checked={topRightBar} /> Front/top
+        <input type="checkbox" bind:checked={topRightBar} /> Front/top<br />
         <input type="checkbox" bind:checked={botLeftBar} /> Back/bottom
         <input type="checkbox" bind:checked={botRightBar} /> Front/bottom
         
         <h3>Sides</h3>
-        <input type="checkbox" bind:checked={$box.isClosed} /> closed sides (mandatory with front or top shelves)
+        <input type="checkbox" bind:checked={$box.isClosed} /> closed sides<br />
+        <i>(mandatory with front or top shelves)</i>
     </div>
     <div>
         <h3>Workspace Dimensions (mm)</h3>
@@ -143,7 +149,7 @@
     </div>
 
     <div style="font-style: italic; font-size: smaller;">
-        Open Source - <a href="https://github.com/lizzard77/cnc-french-cleat-box-designer/blob/master/LICENSE">MIT License</a>><br />
+        Open Source - <a href="https://github.com/lizzard77/cnc-french-cleat-box-designer/blob/master/LICENSE">MIT License</a><br />
         <a href="https://github.com/lizzard77/cnc-french-cleat-box-designer">Visit project on GitHub</a>
     </div>
 </div>

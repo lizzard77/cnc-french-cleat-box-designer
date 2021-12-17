@@ -10,6 +10,8 @@ export const cornerRadius = writable(20);
 export const cleatWidth = writable(18);
 export const cleatConnectionHeight = writable(20);    
 export const randAbstand = writable(7);
+export const supportHeight = writable(20);
+export const gap = writable(5);
 
 export const  schlitze = writable({
         h1: false,
@@ -95,16 +97,16 @@ function createItems()
             let xpos = 0; 
             let ypos = 0;
             let lineHeight = 0;
-            const gap = 5;
+            const gapValue = get(gap);
 
             let ws = get(workspace);
             let tempItems = get(items);
             tempItems.forEach(i => {
                 if (i.w && i.h)
                 {
-                    if (xpos + i.w + 5 > ws.width)
+                    if (xpos + i.w + gapValue > ws.width)
                     {
-                        ypos += lineHeight + gap;
+                        ypos += lineHeight + gapValue;
                         xpos = 0;
                     }
 
@@ -115,7 +117,7 @@ function createItems()
                     }
                     console.log("move " + i.name + " to " + i.x + "/" + i.y);                
                     lineHeight = Math.max(lineHeight, i.h);
-                    xpos += i.w + gap;
+                    xpos += i.w + gapValue;
                 }
             })
             items.set(tempItems);

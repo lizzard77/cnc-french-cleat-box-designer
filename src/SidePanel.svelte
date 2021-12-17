@@ -1,15 +1,21 @@
 <script>
     import save from './save-svg.js';
-    import { box, thickness, schlitze, cornerRadius, cleatWidth, cleatConnectionHeight, randAbstand } from './store';
+    import { box, thickness, schlitze, cornerRadius, cleatWidth, cleatConnectionHeight, randAbstand, supportHeight } from './store';
 
     export let mirror = false;    
     export let x = 0;
     export let y = 0;
+    let supportPath = "";
     let svg;
 
     export let pocketColor = '#7F7F7F';
     export let extCutOutline = '#000000';
     export let extCutFill = '#000000';
+
+    $: if ($supportHeight)
+    {
+        supportPath = `l -${$cleatWidth},0 l 0,-${$supportHeight} l ${$cleatWidth},0`;        
+    } else { supportPath = ""; }
 </script>
 
 <g transform="translate({mirror ? x*2-5 : x} {y})" on:click={() => save(svg, "SidePanel.svg")} bind:this={svg}>
@@ -21,7 +27,8 @@
             a{$cornerRadius},{$cornerRadius} 0 0 1 {$cornerRadius},{$cornerRadius} 
             l0,{$box.height-$cornerRadius} 
             l-{$box.depth},0 
-            l0,-{$box.height-$cleatConnectionHeight} 
+            {supportPath}
+            l0,-{$box.height-$cleatConnectionHeight-$supportHeight} 
             l-{$cleatWidth},{$cleatWidth} 
             l0,-{$cleatWidth + $cleatConnectionHeight}" style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
         {:else}
