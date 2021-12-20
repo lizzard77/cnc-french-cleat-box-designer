@@ -1,6 +1,6 @@
 <script>
     import save from './save-svg.js';
-    import { box, thickness, schlitze, cornerRadius, cleatWidth, cleatConnectionHeight, randAbstand, supportHeight } from './store';
+    import { box, thickness, schlitze, cornerRadius, cleatWidth, cleatConnectionHeight, randAbstand, supportHeight, supportDepth } from './store';
 
     export let mirror = false;    
     export let x = 0;
@@ -12,16 +12,23 @@
     export let extCutOutline = '#000000';
     export let extCutFill = '#000000';
 
-    $: if ($supportHeight)
+    let startX = Math.max(0, $supportDepth - $cleatWidth);
+
+    $: if ($supportHeight && $supportDepth)
     {
-        supportPath = `l -${$cleatWidth},0 l 0,-${$supportHeight} l ${$cleatWidth},0`;        
-    } else { supportPath = ""; }
+        supportPath = `l -${$supportDepth},0 l 0,-${$supportHeight} l ${$supportDepth},0`;        
+        startX = Math.max(0, $supportDepth - $cleatWidth);
+    } else 
+    { 
+        supportPath = ""; 
+        startX = 0;
+    }
 </script>
 
 <g transform="translate({mirror ? x*2-5 : x} {y})" on:click={() => save(svg, "SidePanel.svg")} bind:this={svg}>
     <g transform="{mirror ? 'scale(-1, 1)' : ''}">
         {#if ($box.isClosed)}
-        <path d="M0,0  
+        <path d="M{startX},0  
             l{$cleatWidth},0 
             l{$box.depth-$cornerRadius},0 
             a{$cornerRadius},{$cornerRadius} 0 0 1 {$cornerRadius},{$cornerRadius} 
@@ -32,7 +39,7 @@
             l-{$cleatWidth},{$cleatWidth} 
             l0,-{$cleatWidth + $cleatConnectionHeight}" style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
         {:else}
-        <path d="M0,0 
+        <path d="M{startX},0 
             l{$cleatWidth},0 
             l{$randAbstand*2 + $thickness - $cornerRadius},0 
             a{$cornerRadius},{$cornerRadius} 0 0 1 {$cornerRadius},{$cornerRadius} 
@@ -40,35 +47,36 @@
             l{$box.depth - $randAbstand*2 - $thickness},0 
             l0,{$randAbstand*2+$thickness}
             l{-$box.depth},0
-            l0,-{$box.height-$cleatConnectionHeight} 
+            {supportPath}
+            l0,-{$box.height-$cleatConnectionHeight-$supportHeight} 
             l-{$cleatWidth},{$cleatWidth} 
             l0,-{$cleatWidth + $cleatConnectionHeight}" style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
         {/if}
 
         {#if ($schlitze.h1)}
-        <rect x={$cleatWidth+$randAbstand+$thickness} y={$cleatConnectionHeight+$randAbstand} width={$thickness*2} height={$thickness} style="fill:{pocketColor}; stroke-width: 0;" />
+        <rect x={startX+$cleatWidth+$randAbstand+$thickness} y={$cleatConnectionHeight+$randAbstand} width={$thickness*2} height={$thickness} style="fill:{pocketColor}; stroke-width: 0;" />
         {/if}
         {#if ($schlitze.h2)}
-        <rect x={$cleatWidth+$box.depth-$randAbstand-$thickness*3} y={$cleatConnectionHeight+$randAbstand} width={$thickness*2} height={$thickness} style="fill:{pocketColor};stroke-width: 0;" />
+        <rect x={startX+$cleatWidth+$box.depth-$randAbstand-$thickness*3} y={$cleatConnectionHeight+$randAbstand} width={$thickness*2} height={$thickness} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         {#if ($schlitze.h3)}
-        <rect x={$cleatWidth+$box.depth-$randAbstand-$thickness*3} y={$box.height-$randAbstand-$thickness} width={$thickness*2} height={$thickness} style="fill:{pocketColor};stroke-width: 0;" />
+        <rect x={startX+$cleatWidth+$box.depth-$randAbstand-$thickness*3} y={$box.height-$randAbstand-$thickness} width={$thickness*2} height={$thickness} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         {#if ($schlitze.h4)}
-        <rect x={$cleatWidth+$randAbstand+$thickness} y={$box.height-$randAbstand-$thickness} width={$thickness*2} height={$thickness} style="fill:{pocketColor};stroke-width: 0;" />
+        <rect x={startX+$cleatWidth+$randAbstand+$thickness} y={$box.height-$randAbstand-$thickness} width={$thickness*2} height={$thickness} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         
         {#if ($schlitze.v1)}
-        <rect x={$cleatWidth+$randAbstand} y={$cleatConnectionHeight+$randAbstand+$thickness} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
+        <rect x={startX+$cleatWidth+$randAbstand} y={$cleatConnectionHeight+$randAbstand+$thickness} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         {#if ($schlitze.v2)}
-        <rect x={$cleatWidth+$box.depth-$thickness-$randAbstand} y={$cleatConnectionHeight+$randAbstand+$thickness} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
+        <rect x={startX+$cleatWidth+$box.depth-$thickness-$randAbstand} y={$cleatConnectionHeight+$randAbstand+$thickness} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         {#if ($schlitze.v3)}
-        <rect x={$cleatWidth+$box.depth-$thickness-$randAbstand} y={$box.height-$randAbstand-$thickness*3} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
+        <rect x={startX+$cleatWidth+$box.depth-$thickness-$randAbstand} y={$box.height-$randAbstand-$thickness*3} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         {#if ($schlitze.v4)}
-        <rect x={$cleatWidth+$randAbstand} y={$box.height-$randAbstand-$thickness*2-$thickness} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
+        <rect x={startX+$cleatWidth+$randAbstand} y={$box.height-$randAbstand-$thickness*2-$thickness} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
     </g>
 </g>

@@ -1,6 +1,6 @@
 <script>
     import { afterUpdate } from 'svelte';
-    import { items, workspace, box, schlitze, randAbstand, thickness, cleatWidth, supportHeight, gap } from './store';
+    import { items, workspace, box, schlitze, randAbstand, thickness, cleatWidth, supportHeight, supportDepth, gap } from './store';
 	import save from './save-svg.js';
 
     let svg;
@@ -115,9 +115,9 @@
         <h3><b>Base Dimensions (mm)</h3>            
         Material thickness <input type=number bind:value={$thickness} min=0 max=500 /><br />
         Cleat thickness <input type=number bind:value={$cleatWidth} min=0 max=500 /><br />
-        Support part height <input type=number bind:value={$supportHeight} min=0 max=500 /><br />
+        Support part H: <input type=number bind:value={$supportHeight} min=0 max=500 /> D: <input type=number bind:value={$supportDepth} min=0 max=500 /><br />
         <i>(Set to 0 to disable)</i><br />
-        Gap <input type=number bind:value={$gap} min=0 max=500 />
+        
 
     </div>
     <div>
@@ -140,7 +140,8 @@
     <div>
         <h3>Workspace Dimensions (mm)</h3>
         W <input type=number bind:value={$workspace.width} on:change={(e) => $workspace = { ...$workspace, width: e.target.value }} min=0 max=1000 />
-        L <input type=number bind:value={$workspace.height} min=0 max=1000 />
+        L <input type=number bind:value={$workspace.height} min=0 max=1000 /><br />
+        Gap <input type=number bind:value={$gap} min=0 max=500 />
     </div>
     <div>
         <h3>Download SVG</h3>

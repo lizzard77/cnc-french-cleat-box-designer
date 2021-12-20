@@ -11,6 +11,7 @@ export const cleatWidth = writable(18);
 export const cleatConnectionHeight = writable(20);    
 export const randAbstand = writable(7);
 export const supportHeight = writable(20);
+export const supportDepth = writable(18);
 export const gap = writable(5);
 
 export const  schlitze = writable({
