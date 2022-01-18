@@ -1,6 +1,6 @@
 <script>
     import save from './save-svg.js';
-    import { box, thickness, schlitze, cornerRadius, cleatWidth, cleatConnectionHeight, randAbstand, supportHeight, supportDepth } from './store';
+    import { box, thickness, schlitze, cornerRadius, cleatWidth, cleatConnectionHeight, randAbstand, supportHeight, supportDepth, cutterDiameter } from './store';
 
     export let mirror = false;    
     export let x = 0;
@@ -12,13 +12,11 @@
     export let extCutOutline = '#000000';
     export let extCutFill = '#000000';
 
-    const cutterDia = 6;
-
     let startX = Math.max(0, $supportDepth - $cleatWidth);
 
     $: if ($supportHeight && $supportDepth)
     {
-        supportPath = `l -${$supportDepth},0 l 0,-${$supportHeight} l ${$supportDepth-cutterDia},0 a ${cutterDia/2} ${cutterDia/2} 0 0 0 ${cutterDia} 0`;        
+        supportPath = `l -${$supportDepth},0 l 0,-${$supportHeight} l ${$supportDepth-$cutterDiameter},0 a ${$cutterDiameter/2} ${$cutterDiameter/2} 0 0 0 ${$cutterDiameter} 0`;        
         startX = Math.max(0, $supportDepth - $cleatWidth);
     } else 
     { 
@@ -39,10 +37,10 @@
             {supportPath}
             l0,-{$box.height-$cleatConnectionHeight-$supportHeight-8} 
             l 2 -2
-            a 3 3 0 0 0 -7 -5
+            a {$cutterDiameter/2} {$cutterDiameter/2} 0 0 0 -{$cutterDiameter} -{$cutterDiameter/2}
             l -2 2
-            l-{$cleatWidth-7},{$cleatWidth-5} 
-            l0,-{$cleatWidth + $cleatConnectionHeight - 2}" style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
+            l-{$cleatWidth-$cutterDiameter},{$cleatWidth-$cutterDiameter} 
+            l0,-{$cleatWidth + $cleatConnectionHeight - 2 - ($cutterDiameter/2)}" style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
         {:else}
         <path d="M{startX},0 
             l{$cleatWidth},0 
