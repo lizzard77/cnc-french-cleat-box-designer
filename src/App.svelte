@@ -1,6 +1,6 @@
 <script>
     import { afterUpdate } from 'svelte';
-    import { items, workspace, box, schlitze, randAbstand, thickness, cleatWidth, supportHeight, supportDepth, gap } from './store';
+    import { items, workspace, box, schlitze, randAbstand, thickness, cleatWidth, supportHeight, supportDepth, gap, cutterDiameter } from './store';
 	import save from './save-svg.js';
 
     let svg;
@@ -114,6 +114,7 @@
     <div>
         <h3><b>Base Dimensions (mm)</h3>            
         Material thickness <input type=number bind:value={$thickness} min=0 max=500 /><br />
+        Cutter diameter <input type=number bind:value={$cutterDiameter} min=0 max=30 /><br />
         Cleat thickness <input type=number bind:value={$cleatWidth} min=0 max=500 /><br />
         Support part H: <input type=number bind:value={$supportHeight} min=0 max=500 /> D: <input type=number bind:value={$supportDepth} min=0 max=500 /><br />
         <i>(Set to 0 to disable)</i><br />
