@@ -12,11 +12,13 @@
     export let extCutOutline = '#000000';
     export let extCutFill = '#000000';
 
+    const cutterDia = 6;
+
     let startX = Math.max(0, $supportDepth - $cleatWidth);
 
     $: if ($supportHeight && $supportDepth)
     {
-        supportPath = `l -${$supportDepth},0 l 0,-${$supportHeight} l ${$supportDepth},0`;        
+        supportPath = `l -${$supportDepth},0 l 0,-${$supportHeight} l ${$supportDepth-cutterDia},0 a ${cutterDia/2} ${cutterDia/2} 0 0 0 ${cutterDia} 0`;        
         startX = Math.max(0, $supportDepth - $cleatWidth);
     } else 
     { 
@@ -35,9 +37,12 @@
             l0,{$box.height-$cornerRadius} 
             l-{$box.depth},0 
             {supportPath}
-            l0,-{$box.height-$cleatConnectionHeight-$supportHeight} 
-            l-{$cleatWidth},{$cleatWidth} 
-            l0,-{$cleatWidth + $cleatConnectionHeight}" style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
+            l0,-{$box.height-$cleatConnectionHeight-$supportHeight-8} 
+            l 2 -2
+            a 3 3 0 0 0 -7 -5
+            l -2 2
+            l-{$cleatWidth-7},{$cleatWidth-5} 
+            l0,-{$cleatWidth + $cleatConnectionHeight - 2}" style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
         {:else}
         <path d="M{startX},0 
             l{$cleatWidth},0 
@@ -48,8 +53,11 @@
             l0,{$randAbstand*2+$thickness}
             l{-$box.depth},0
             {supportPath}
-            l0,-{$box.height-$cleatConnectionHeight-$supportHeight} 
-            l-{$cleatWidth},{$cleatWidth} 
+            l0,-{$box.height-$cleatConnectionHeight-$supportHeight-8} 
+            l 2 -2
+            a 3 3 0 0 0 -7 -5
+            l -2 2
+            l-{$cleatWidth-7},{$cleatWidth-5} 
             l0,-{$cleatWidth + $cleatConnectionHeight}" style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
         {/if}
 
