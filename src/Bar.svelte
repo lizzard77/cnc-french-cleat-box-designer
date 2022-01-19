@@ -1,5 +1,5 @@
 <script>
-    import { box, thickness } from './store';    
+    import { box, thickness, cutterDiameter } from './store';    
     import save from './save-svg.js';
 
 let svg;
@@ -8,7 +8,6 @@ let svg;
     export let x = 0;
     export let y = 0;
 
-    export let pocketColor = '#7F7F7F';
     export let extCutOutline = '#000000';
     export let extCutFill = '#000000';
 </script>
@@ -18,17 +17,21 @@ let svg;
         l{$box.width},0
         l0,{randAbstand}
 
+        a {$cutterDiameter/2} {$cutterDiameter/2} 0 0 0 0 {$cutterDiameter}
         l{$thickness},0
         l0,{$thickness*2}
         l{-$thickness},0
+        a {$cutterDiameter/2} {$cutterDiameter/2} 0 0 0 0 {$cutterDiameter}
 
         l0,{randAbstand}
         l{-$box.width},0
         l0,{0, -randAbstand}
 
+        a {$cutterDiameter/2} {$cutterDiameter/2} 0 0 0 0 {-$cutterDiameter}
         l{-$thickness},0
         l0,{-$thickness*2}
         l{$thickness},0
+        a {$cutterDiameter/2} {$cutterDiameter/2} 0 0 0 0 {-$cutterDiameter}
 
         l0,{-randAbstand}
     "  style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />

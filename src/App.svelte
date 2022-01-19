@@ -39,7 +39,7 @@
         {
             $schlitze.h1 = true;
             $schlitze.h2 = true;
-            items.addShelf($box.depth, $box.width, "top", false);
+            items.addShelf($box.width, $box.depth, "top", false);
         } 
 
         if (bottomIsShelf)
@@ -157,7 +157,7 @@
 </div>
 
 <div id="workspaces">
-    <svg bind:this={svg} width="{$workspace.width}" height="{$workspace.height}" fill-rule="evenodd" style="border: 1px solid silver; fill:none;stroke:black;stroke-width:0.5px;">
+    <svg bind:this={svg} width="{$workspace.width}mm" height="{$workspace.height}mm" fill-rule="evenodd" style="border: 1px solid silver; fill:none;stroke:black;stroke-width:0.5px;">
     {#each $items as item}
     <g id={item.name}>
         <svelte:component this={item.component} name={item.name} {...item.props} x={item.x || 0} y={item.y || 0} />
