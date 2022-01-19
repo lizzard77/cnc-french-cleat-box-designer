@@ -13,11 +13,11 @@
     export let extCutFill = '#000000';
 
     let zapfenBreite = 2 * $thickness;
-    let mittelteil = h - 2*zapfenBreite - 2*$cutterDiameter;    
+    let mittelteil = w - 2*zapfenBreite - 2*$cutterDiameter - $cornerRadius - 2 * $thickness - $randAbstand;    
 
     $: {
         zapfenBreite = 2 * $thickness;
-        mittelteil = h - 2*zapfenBreite - 2*$cutterDiameter;    
+        mittelteil = w - 2*zapfenBreite - 2*$cutterDiameter - $cornerRadius - 2 * $thickness - $randAbstand;    
     }
 </script>
 

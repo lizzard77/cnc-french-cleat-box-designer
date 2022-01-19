@@ -60,10 +60,10 @@
         {/if}
 
         {#if ($schlitze.h1)}
-        <rect x={startX+$cleatWidth+$randAbstand+$thickness} y={$cleatConnectionHeight+$randAbstand-2} width={$thickness*2} height={$thickness} style="fill:{pocketColor}; stroke-width: 0;" />
+        <rect x={startX+$cleatWidth+$randAbstand+$thickness} y={$cornerRadius} width={$thickness*2} height={$thickness} style="fill:{pocketColor}; stroke-width: 0;" />
         {/if}
         {#if ($schlitze.h2)}
-        <rect x={startX+$cleatWidth+$box.depth-$randAbstand-$thickness*3} y={$cleatConnectionHeight+$randAbstand-2} width={$thickness*2} height={$thickness} style="fill:{pocketColor};stroke-width: 0;" />
+        <rect x={startX+$cleatWidth+$box.depth-$randAbstand-$thickness*3} y={$cornerRadius} width={$thickness*2} height={$thickness} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         {#if ($schlitze.h3)}
         <rect x={startX+$cleatWidth+$box.depth-$randAbstand-$thickness*3} y={$box.height-$randAbstand-$thickness} width={$thickness*2} height={$thickness} style="fill:{pocketColor};stroke-width: 0;" />
@@ -73,10 +73,10 @@
         {/if}
         
         {#if ($schlitze.v1)}
-        <rect x={startX+$cleatWidth+$randAbstand} y={$cleatConnectionHeight+$randAbstand+$thickness-2} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
+        <rect x={startX+$cleatWidth+$randAbstand} y={$cornerRadius+$thickness} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         {#if ($schlitze.v2)}
-        <rect x={startX+$cleatWidth+$box.depth-$thickness-$randAbstand} y={$cleatConnectionHeight+$randAbstand+$thickness-2} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
+        <rect x={startX+$cleatWidth+$box.depth-$thickness-$randAbstand} y={$cornerRadius+$thickness} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
         {/if}
         {#if ($schlitze.v3)}
         <rect x={startX+$cleatWidth+$box.depth-$thickness-$randAbstand} y={$box.height-$randAbstand-$thickness*3} width={$thickness} height={$thickness*2} style="fill:{pocketColor};stroke-width: 0;" />
