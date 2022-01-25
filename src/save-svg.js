@@ -1,16 +1,25 @@
-export default function save(svg, name = 'download.svg') 
+export default function save(svg, name = 'download.svg', zoom = 1) 
 {
-    svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-    var svgData = svg.outerHTML;
-    var preface = '<?xml version="1.0" standalone="no"?>\r\n';
+    var preface = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>\r\n';
     var postface = "";
+
+    var rect = svg.getBoundingClientRect();
+    const w = Math.ceil(rect.width*0.26458333);
+    const h = Math.ceil(rect.height*0.26458333);
+    console.log("export size of " + name + " is " + w + "/" + h);
 
     if (svg.tagName !== "svg")
     {
-        preface += '<svg fill-rule="evenodd" style="border: 1px solid silver; fill:none;stroke:black;stroke-width:0.5px;">';
-        postface = '</svg>';
+        preface += '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + 'mm" height="' + h + 'mm" viewBox="0 0 ' + w + ' ' + h + '">';
+        postface = '</svg>';        
+    } else {
+        svg.setAttribute("width", w + "mm");
+        svg.setAttribute("height", h + "mm");
+        svg.setAttribute("viewBox", "0 0 " + w + " " + h);
+        console.log(svg);
     }
 
+    var svgData = svg.outerHTML;
     var svgBlob = new Blob([preface, svgData, postface], { type: "image/svg+xml;charset=utf-8" });
     var svgUrl = URL.createObjectURL(svgBlob);
     

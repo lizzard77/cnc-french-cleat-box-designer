@@ -1,6 +1,6 @@
 <script>
     import { afterUpdate } from 'svelte';
-    import { items, workspace, box, schlitze, randAbstand, thickness, cleatWidth, supportHeight, supportDepth, gap, cutterDiameter } from './store';
+    import { items, workspace, box, schlitze, randAbstand, thickness, cleatWidth, supportHeight, supportDepth, gap, cutterDiameter, zoom } from './store';
 	import save from './save-svg.js';
 
     let svg;
@@ -146,7 +146,7 @@
     </div>
     <div>
         <h3>Download SVG</h3>
-        <button on:click={ev => save(svg, "Workspace.svg")}>Download Workspace</button>
+        <button on:click={ev => save(svg, "Workspace.svg", $zoom)}>Download Workspace</button>
         <p><i>Click individual parts to download separate files</i></p>    
     </div>
 
@@ -157,12 +157,10 @@
 </div>
 
 <div id="workspaces">
-    <svg bind:this={svg} width="{$workspace.width}mm" height="{$workspace.height}mm" fill-rule="evenodd" style="border: 1px solid silver; fill:none;stroke:black;stroke-width:0.5px;">
-    {#each $items as item}
-    <g id={item.name}>
+    <svg xmlns="http://www.w3.org/2000/svg" bind:this={svg} width="{$workspace.width}mm" height="{$workspace.height}mm" viewBox="0 0 {$workspace.width*$zoom} {$workspace.height*$zoom}" style="border: 1px solid silver; fill:none;stroke:black;stroke-width:0.5px;">
+        {#each $items as item}
         <svelte:component this={item.component} name={item.name} {...item.props} x={item.x || 0} y={item.y || 0} />
-    </g>
-    {/each}
+        {/each}
     </svg>
 </div>
 

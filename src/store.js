@@ -14,6 +14,7 @@ export const supportHeight = writable(20);
 export const supportDepth = writable(18);
 export const gap = writable(5);
 export const cutterDiameter = writable(6);
+export const zoom = writable(3);
 
 export const  schlitze = writable({
         h1: false,
@@ -78,16 +79,16 @@ function createItems()
             tempItems.forEach(i => {
                 if (i.name)
                 {
-                    console.log("get " +i.name);
                     var item = document.querySelector('#'+  i.name);
                     if (item)
                     {
                         var rect = item.getBoundingClientRect();
-                        if (rect && (i.w !== rect.width || i.h !== rect.height))
+                        if (rect && rect.width && rect.height)
                         {
-                            console.log("size of " + i.name + " is " + rect.width + "/" + rect.height);
-                            i.w = rect.width;
-                            i.h = rect.height;
+                            const z = get(zoom);
+                            i.w = Math.ceil(rect.width*0.26458333*z);
+                            i.h = Math.ceil(rect.height*0.26458333*z);
+                            console.log("size of " + i.name + " is " + i.w + "/" + i.h);                            
                         }
                     }
                 }
@@ -96,6 +97,7 @@ function createItems()
         },
 
         reposition: () => {
+            console.log("Reposition");
             let xpos = 0; 
             let ypos = 0;
             let lineHeight = 0;
