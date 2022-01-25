@@ -1,6 +1,6 @@
 <script>
 import save from './save-svg.js';
-import { gap } from './store';
+import { zoom } from './store';
     
 export let x;
 export let y;
@@ -25,6 +25,6 @@ $: {
 }
 </script>
 
-<g id={name} {transform} on:click={() => save(svg, name)} bind:this={svg}>
+<g id={name} {transform} on:click={() => save(svg, name, $zoom)} bind:this={svg}>
     <slot />
 </g>

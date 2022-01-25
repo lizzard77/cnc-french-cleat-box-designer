@@ -4,20 +4,21 @@ export default function save(svg, name = 'download.svg', zoom = 1)
     var postface = "";
 
     var rect = svg.getBoundingClientRect();
-    const w = Math.ceil(rect.width*0.26458333);
-    const h = Math.ceil(rect.height*0.26458333);
-    console.log("export size of " + name + " is " + w + "/" + h);
-
+    let w = Math.ceil(rect.width*0.26458333);
+    let h = Math.ceil(rect.height*0.26458333);
+    
     if (svg.tagName !== "svg")
     {
+        w *= zoom; h *= zoom;
         preface += '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + 'mm" height="' + h + 'mm" viewBox="0 0 ' + w + ' ' + h + '">';
         postface = '</svg>';        
     } else {
         svg.setAttribute("width", w + "mm");
         svg.setAttribute("height", h + "mm");
         svg.setAttribute("viewBox", "0 0 " + w + " " + h);
-        console.log(svg);
     }
+    console.log("export size of " + name + " is " + w + "/" + h);
+
 
     var svgData = svg.outerHTML;
     var svgBlob = new Blob([preface, svgData, postface], { type: "image/svg+xml;charset=utf-8" });
