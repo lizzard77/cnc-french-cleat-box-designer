@@ -40,7 +40,8 @@
             a {$cutterDiameter/2} {$cutterDiameter/2} 0 0 0 -{$cutterDiameter} -{$cutterDiameter/2}
             l -2 2
             l-{$cleatWidth-$cutterDiameter},{$cleatWidth-$cutterDiameter} 
-            l0,-{$cleatWidth + $cleatConnectionHeight - 2 - ($cutterDiameter/2)}" style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
+            L {startX},0"
+            style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
         {:else}
         <path d="M{startX},0 
             l{$cleatWidth},0 
@@ -56,7 +57,8 @@
             a 3 3 0 0 0 -7 -5
             l -2 2
             l-{$cleatWidth-7},{$cleatWidth-5} 
-            l0,-{$cleatWidth + $cleatConnectionHeight}" style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
+            L {startX},0" 
+            style="fill:{extCutFill};stroke-width:1px;stroke-color:{extCutOutline};" />
         {/if}
 
         {#if ($schlitze.h1)}
